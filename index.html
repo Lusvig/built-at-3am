@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOOMSCROLL DETOX - YOU ARE BEING SAVED</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="rickroll-container" class="rickroll-container hidden">
+        <div class="rickroll-overlay">
+            <button id="rickroll-close" class="rickroll-close disabled" disabled>NOPE</button>
+            <video id="rickroll-video" autoplay loop muted>
+                <source src="https://www.youtube.com/embed/dQw4w9WgXcQ" type="video/mp4">
+            </video>
+            <audio id="rickroll-audio" autoplay loop>
+                <source src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" type="audio/mpeg">
+            </audio>
+            <div id="rickroll-timer" class="rickroll-timer">GET RICKROLLED FOR: <span id="rickroll-remaining">00:00</span></div>
+        </div>
+    </div>
+
+    <div id="main-container" class="main-container">
+        <div class="header">
+            <h1>🔞 DOOMSCROLL DETOX 🔞</h1>
+            <p class="tagline">YOUR SCREEN TIME IS A SOCIAL CREDIT SCORE</p>
+        </div>
+
+        <div class="session-container">
+            <div class="session-box">
+                <h2>SESSION STATUS: <span id="status">ACTIVE</span></h2>
+                <div class="timer-display">
+                    <div class="time" id="session-time">30:00</div>
+                    <div class="subtext">TIME UNTIL YEET</div>
+                </div>
+            </div>
+
+            <div class="stats-box">
+                <h3>TODAY'S DEGENERACY LEVEL</h3>
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat-label">Visits Today</div>
+                        <div class="stat-value" id="visit-count">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">24h Harmfulness</div>
+                        <div class="stat-value" id="harm-level">📊</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Last Visit</div>
+                        <div class="stat-value" id="last-visit">N/A</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-container">
+            <div class="section">
+                <h2>⚠️ THIS IS YOUR ONLY WARNING ⚠️</h2>
+                <p>You have <strong>30 minutes</strong> of internet per session. That's it. That's the whole thing.</p>
+                <p>Visit this cursed site <strong>3 times in 24 hours</strong> and the rickroll dimension opens up.</p>
+                <p><strong>THERE IS NO ESCAPE.</strong></p>
+            </div>
+
+            <div class="section neon-box">
+                <h2>THE RULES (NON-NEGOTIABLE)</h2>
+                <ul class="rules-list">
+                    <li>30 minute session limit - automatic yeet to hell</li>
+                    <li>3 visits in 24h = RICKROLL ZONE ACTIVATED</li>
+                    <li>Each refresh adds +1 minute to your rickroll sentence</li>
+                    <li>NO ESCAPE. NO MERCY. NO DIGNITY.</li>
+                    <li>Go outside. Touch grass. Your phone is not your personality.</li>
+                </ul>
+            </div>
+
+            <div class="button-container">
+                <button id="refresh-btn" class="refresh-btn">REFRESH (AT YOUR OWN RISK)</button>
+                <button id="clear-btn" class="clear-btn">RESET 24H DATA (NUCLEAR OPTION)</button>
+            </div>
+
+            <div class="footer-text">
+                <p>Built with maximum contempt for your attention span.</p>
+                <p>No tests were harmed in the making of this application.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
