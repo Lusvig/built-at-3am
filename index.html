@@ -2,89 +2,661 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOOMSCROLL DETOX - YOU ARE BEING SAVED</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>☠️ DOOMSCROLL DETOX ☠️ YOU HAVE 30 MINUTES</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        @font-face {
+            font-family: 'ComicSans';
+            src: local('Comic Sans MS'), local('ComicSans'), sans-serif;
+        }
+
+        body {
+            font-family: 'ComicSans', 'Comic Sans MS', cursive;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00, #00ff00, #ff0080, #00ffff);
+            background-size: 400% 400%;
+            animation: seizure 2s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        @keyframes seizure {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 0% 50%; }
+            75% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .three-am-badge {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 5000;
+            background: #ff00ff;
+            border: 3px dashed #00ffff;
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-weight: 900;
+            color: #ffff00;
+            text-shadow: 0 0 10px #00ff00, 2px 2px 0 #000;
+            font-size: 12px;
+            animation: badge-pulse 1.5s ease-in-out infinite;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        @keyframes badge-pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(5deg); }
+        }
+
+        .main-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            overflow: auto;
+            padding: 20px;
+        }
+
+        .main-container.hidden {
+            display: none !important;
+        }
+
+        .rickroll-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .rickroll-container.hidden {
+            display: none !important;
+        }
+
+        .rickroll-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .rickroll-timer {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #000;
+            border: 5px solid #ff00ff;
+            color: #00ff00;
+            font-size: 24px;
+            font-weight: 900;
+            padding: 15px 25px;
+            text-shadow: 0 0 20px #00ff00;
+            z-index: 10000;
+            animation: timer-glow 0.5s ease-in-out infinite;
+        }
+
+        @keyframes timer-glow {
+            0%, 100% { text-shadow: 0 0 20px #00ff00; box-shadow: 0 0 20px #ff00ff; }
+            50% { text-shadow: 0 0 40px #ffff00; box-shadow: 0 0 40px #00ffff; }
+        }
+
+        .rickroll-close {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff0000;
+            border: 5px solid #ffff00;
+            color: #000;
+            font-size: 20px;
+            font-weight: 900;
+            padding: 15px 30px;
+            z-index: 10001;
+            cursor: not-allowed;
+            font-family: 'ComicSans', 'Comic Sans MS', cursive;
+            text-transform: uppercase;
+            opacity: 0.3;
+            box-shadow: 0 0 30px #ff0000;
+        }
+
+        .rickroll-close.enabled {
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        .rickroll-close.enabled:hover {
+            background: #ffff00;
+            color: #ff0000;
+            transform: scale(1.1);
+        }
+
+        .timer-display {
+            font-size: 120px;
+            font-weight: 900;
+            color: #00ff00;
+            text-shadow: 0 0 30px #00ff00, 0 0 60px #ff00ff, 3px 3px 0 #000;
+            letter-spacing: 10px;
+            animation: timer-blink 1s ease-in-out infinite;
+            line-height: 1;
+        }
+
+        .timer-display.warning {
+            color: #ffff00;
+            text-shadow: 0 0 30px #ffff00, 0 0 60px #ff0000;
+            animation: timer-blink 0.5s ease-in-out infinite;
+        }
+
+        .timer-display.critical {
+            color: #ff0000;
+            text-shadow: 0 0 30px #ff0000, 0 0 60px #ffff00;
+            animation: timer-blink 0.2s ease-in-out infinite;
+        }
+
+        @keyframes timer-blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .timer-label {
+            font-size: 36px;
+            color: #ffff00;
+            text-shadow: 0 0 20px #ffff00;
+            margin-top: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h1 {
+            font-size: 60px;
+            color: #ff00ff;
+            text-shadow: 0 0 30px #ff00ff, 0 0 60px #00ffff, 5px 5px 0 #000;
+            animation: h1-glitch 0.3s infinite;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+
+        @keyframes h1-glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .blinking {
+            animation: blink 0.5s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0; }
+        }
+
+        marquee {
+            background: #ff00ff;
+            color: #00ffff;
+            font-size: 24px;
+            font-weight: 900;
+            padding: 10px;
+            text-shadow: 0 0 10px #00ffff;
+            margin: 20px 0;
+            border: 5px dashed #ffff00;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+            max-width: 600px;
+        }
+
+        .stat-box {
+            background: rgba(0, 0, 0, 0.7);
+            border: 3px solid #00ffff;
+            padding: 20px;
+            text-align: center;
+            color: #ffff00;
+            font-size: 24px;
+            font-weight: 900;
+            box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .stat-label {
+            color: #00ff00;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            color: #ff00ff;
+            font-size: 48px;
+            text-shadow: 0 0 20px #ff00ff;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            background: #00ff00;
+            color: #000;
+            border: 3px solid #ffff00;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 900;
+            cursor: pointer;
+            font-family: 'ComicSans', 'Comic Sans MS', cursive;
+            text-transform: uppercase;
+            text-shadow: 0 0 5px #ff00ff;
+            transition: all 0.1s;
+            box-shadow: 5px 5px 0 #ff00ff;
+        }
+
+        .btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0 #ff00ff;
+            background: #ffff00;
+        }
+
+        .btn:active {
+            transform: translate(5px, 5px);
+            box-shadow: 0 0 0 #ff00ff;
+        }
+
+        .btn-danger {
+            background: #ff0000;
+            color: #ffff00;
+            border: 3px dashed #00ffff;
+        }
+
+        .under-construction {
+            margin: 20px 0;
+            font-size: 32px;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .warning-box {
+            background: rgba(255, 0, 0, 0.2);
+            border: 5px dashed #ff0000;
+            padding: 20px;
+            margin: 20px 0;
+            color: #ff0000;
+            font-size: 20px;
+            font-weight: 900;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .timer-display {
+                font-size: 72px;
+                letter-spacing: 5px;
+            }
+
+            .timer-label {
+                font-size: 24px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+            }
+
+            marquee {
+                font-size: 16px;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 16px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div id="rickroll-container" class="rickroll-container hidden">
-        <div class="rickroll-overlay">
-            <button id="rickroll-close" class="rickroll-close disabled" disabled>NOPE</button>
-            <video id="rickroll-video" autoplay loop muted>
-                <source src="https://www.youtube.com/embed/dQw4w9WgXcQ" type="video/mp4">
-            </video>
-            <audio id="rickroll-audio" autoplay loop>
-                <source src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" type="audio/mpeg">
-            </audio>
-            <div id="rickroll-timer" class="rickroll-timer">GET RICKROLLED FOR: <span id="rickroll-remaining">00:00</span></div>
+    <div class="three-am-badge">
+        ⏰<br>BUILT<br>AT<br>3AM
+    </div>
+
+    <div class="main-container" id="mainContainer">
+        <h1>☠️ DOOMSCROLL DETOX ☠️</h1>
+
+        <marquee>🚨 YOUR ATTENTION SPAN IS NOW SEIZED 🚨 YOUR ATTENTION SPAN IS NOW SEIZED 🚨</marquee>
+
+        <div class="timer-display" id="timerDisplay">30:00</div>
+        <div class="timer-label">TIME UNTIL YEET</div>
+
+        <div class="warning-box">
+            <div class="blinking">⚠️ YOU HAVE EXACTLY 30 MINUTES ⚠️</div>
+        </div>
+
+        <marquee direction="right" style="margin: 10px 0;">🔴 EVERY REFRESH = +1 MIN RICKROLL 🔴 EVERY REFRESH = +1 MIN RICKROLL 🔴</marquee>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-label">Visits in 24h</div>
+                <div class="stat-value" id="visitCount">0</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Degeneracy Level</div>
+                <div class="stat-value" id="degeneracy">📊</div>
+            </div>
+        </div>
+
+        <div class="under-construction">🚧 UNDER CONSTRUCTION 🚧</div>
+
+        <div class="buttons">
+            <button class="btn" id="refreshBtn">REFRESH (ADD +1 MIN RICKROLL)</button>
+            <button class="btn btn-danger" id="nukeBtn">NUKE 24H DATA (IF YOU DARE)</button>
+        </div>
+
+        <div style="margin-top: 40px; color: #ffff00; font-size: 14px; text-align: center; max-width: 500px;">
+            <p class="blinking">3+ VISITS IN 24H = INSTANT RICKROLL PUNISHMENT</p>
+            <p style="margin-top: 10px; color: #00ffff;">NO ESCAPE. NO MERCY. NO DIGNITY. GO TOUCH GRASS.</p>
         </div>
     </div>
 
-    <div id="main-container" class="main-container">
-        <div class="header">
-            <h1>🔞 DOOMSCROLL DETOX 🔞</h1>
-            <p class="tagline">YOUR SCREEN TIME IS A SOCIAL CREDIT SCORE</p>
-        </div>
-
-        <div class="session-container">
-            <div class="session-box">
-                <h2>SESSION STATUS: <span id="status">ACTIVE</span></h2>
-                <div class="timer-display">
-                    <div class="time" id="session-time">30:00</div>
-                    <div class="subtext">TIME UNTIL YEET</div>
-                </div>
-            </div>
-
-            <div class="stats-box">
-                <h3>TODAY'S DEGENERACY LEVEL</h3>
-                <div class="stats-grid">
-                    <div class="stat">
-                        <div class="stat-label">Visits Today</div>
-                        <div class="stat-value" id="visit-count">0</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-label">24h Harmfulness</div>
-                        <div class="stat-value" id="harm-level">📊</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-label">Last Visit</div>
-                        <div class="stat-value" id="last-visit">N/A</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="content-container">
-            <div class="section">
-                <h2>⚠️ THIS IS YOUR ONLY WARNING ⚠️</h2>
-                <p>You have <strong>30 minutes</strong> of internet per session. That's it. That's the whole thing.</p>
-                <p>Visit this cursed site <strong>3 times in 24 hours</strong> and the rickroll dimension opens up.</p>
-                <p><strong>THERE IS NO ESCAPE.</strong></p>
-            </div>
-
-            <div class="section neon-box">
-                <h2>THE RULES (NON-NEGOTIABLE)</h2>
-                <ul class="rules-list">
-                    <li>30 minute session limit - automatic yeet to hell</li>
-                    <li>3 visits in 24h = RICKROLL ZONE ACTIVATED</li>
-                    <li>Each refresh adds +1 minute to your rickroll sentence</li>
-                    <li>NO ESCAPE. NO MERCY. NO DIGNITY.</li>
-                    <li>Go outside. Touch grass. Your phone is not your personality.</li>
-                </ul>
-            </div>
-
-            <div class="button-container">
-                <button id="refresh-btn" class="refresh-btn">REFRESH (AT YOUR OWN RISK)</button>
-                <button id="clear-btn" class="clear-btn">RESET 24H DATA (NUCLEAR OPTION)</button>
-            </div>
-
-            <div class="footer-text">
-                <p>Built with maximum contempt for your attention span.</p>
-                <p>No tests were harmed in the making of this application.</p>
-            </div>
-        </div>
+    <div class="rickroll-container hidden" id="rickrollContainer">
+        <div class="rickroll-timer" id="rickrollTimer">RICKROLL: <span id="rickrollTime">10:00</span></div>
+        <button class="rickroll-close" id="rickrollClose">NOPE (LOCKED)</button>
+        <iframe
+            id="rickrollFrame"
+            width="100%"
+            height="100%"
+            src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&controls=0&loop=1&rel=0&modestbranding=1"
+            frameborder="0"
+            allow="autoplay; fullscreen"
+            style="border: none; position: absolute; top: 0; left: 0;">
+        </iframe>
     </div>
 
-    <script src="script.js"></script>
+    <audio id="rickrollAudio" style="display: none;"></audio>
+
+    <script>
+        class DoomscrollDetox {
+            constructor() {
+                this.SESSION_DURATION = 30 * 60 * 1000;
+                this.RICKROLL_BASE = 10 * 60 * 1000;
+                this.VISIT_THRESHOLD = 3;
+                this.STORAGE_VISITS = 'doomscroll_24h_visits';
+                this.STORAGE_RICKROLL_END = 'doomscroll_rickroll_end_time';
+                this.STORAGE_RICKROLL_REFRESHES = 'doomscroll_rickroll_refreshes';
+
+                this.sessionStart = Date.now();
+                this.inRickroll = false;
+                this.rickrollEndTime = null;
+
+                this.els = {
+                    main: document.getElementById('mainContainer'),
+                    rickroll: document.getElementById('rickrollContainer'),
+                    timerDisplay: document.getElementById('timerDisplay'),
+                    visitCount: document.getElementById('visitCount'),
+                    degeneracy: document.getElementById('degeneracy'),
+                    refreshBtn: document.getElementById('refreshBtn'),
+                    nukeBtn: document.getElementById('nukeBtn'),
+                    rickrollTimer: document.getElementById('rickrollTimer'),
+                    rickrollTime: document.getElementById('rickrollTime'),
+                    rickrollClose: document.getElementById('rickrollClose'),
+                    rickrollAudio: document.getElementById('rickrollAudio'),
+                };
+
+                this.init();
+            }
+
+            init() {
+                this.recordVisit();
+                this.updateStats();
+
+                if (this.checkRickrollRestore()) {
+                    this.restoreRickroll();
+                } else if (this.shouldTriggerRickroll()) {
+                    this.triggerRickroll();
+                } else {
+                    this.startSessionTimer();
+                }
+
+                this.attachListeners();
+                this.requestFullscreen();
+            }
+
+            recordVisit() {
+                const visits = this.getVisits();
+                visits.push(Date.now());
+                localStorage.setItem(this.STORAGE_VISITS, JSON.stringify(visits));
+            }
+
+            getVisits() {
+                const data = localStorage.getItem(this.STORAGE_VISITS);
+                if (!data) return [];
+                const visits = JSON.parse(data);
+                const now = Date.now();
+                const dayAgo = now - (24 * 60 * 60 * 1000);
+                return visits.filter(v => v > dayAgo);
+            }
+
+            shouldTriggerRickroll() {
+                return this.getVisits().length >= this.VISIT_THRESHOLD;
+            }
+
+            checkRickrollRestore() {
+                const endTime = localStorage.getItem(this.STORAGE_RICKROLL_END);
+                if (!endTime) return false;
+                return Date.now() < parseInt(endTime);
+            }
+
+            triggerRickroll() {
+                const refreshes = parseInt(localStorage.getItem(this.STORAGE_RICKROLL_REFRESHES) || '0');
+                const extra = refreshes * 60 * 1000;
+                this.rickrollEndTime = Date.now() + this.RICKROLL_BASE + extra;
+
+                localStorage.setItem(this.STORAGE_RICKROLL_END, this.rickrollEndTime.toString());
+                this.inRickroll = true;
+
+                this.showRickroll();
+                this.startRickrollTimer();
+            }
+
+            restoreRickroll() {
+                this.rickrollEndTime = parseInt(localStorage.getItem(this.STORAGE_RICKROLL_END));
+                this.inRickroll = true;
+                this.showRickroll();
+                this.startRickrollTimer();
+            }
+
+            showRickroll() {
+                this.els.main.classList.add('hidden');
+                this.els.rickroll.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                document.body.style.position = 'fixed';
+                document.body.style.width = '100%';
+                document.body.style.height = '100%';
+            }
+
+            hideRickroll() {
+                this.els.rickroll.classList.add('hidden');
+                this.els.main.classList.remove('hidden');
+                document.body.style.overflow = 'auto';
+                document.body.style.position = 'static';
+                this.inRickroll = false;
+                localStorage.removeItem(this.STORAGE_RICKROLL_END);
+                localStorage.removeItem(this.STORAGE_RICKROLL_REFRESHES);
+            }
+
+            startSessionTimer() {
+                const timer = setInterval(() => {
+                    const elapsed = Date.now() - this.sessionStart;
+                    const remaining = Math.max(0, this.SESSION_DURATION - elapsed);
+
+                    if (remaining === 0) {
+                        clearInterval(timer);
+                        this.triggerRickroll();
+                        return;
+                    }
+
+                    this.updateSessionDisplay(remaining);
+                }, 100);
+            }
+
+            updateSessionDisplay(ms) {
+                const mins = Math.floor(ms / 60000);
+                const secs = Math.floor((ms % 60000) / 1000);
+                const display = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+                this.els.timerDisplay.textContent = display;
+
+                if (ms < 60000) {
+                    this.els.timerDisplay.classList.add('critical');
+                    this.els.timerDisplay.classList.remove('warning');
+                } else if (ms < 300000) {
+                    this.els.timerDisplay.classList.add('warning');
+                    this.els.timerDisplay.classList.remove('critical');
+                } else {
+                    this.els.timerDisplay.classList.remove('warning', 'critical');
+                }
+            }
+
+            startRickrollTimer() {
+                const timer = setInterval(() => {
+                    const remaining = Math.max(0, this.rickrollEndTime - Date.now());
+
+                    if (remaining === 0) {
+                        clearInterval(timer);
+                        this.els.rickrollClose.classList.add('enabled');
+                        this.els.rickrollClose.textContent = 'CLOSE';
+                        this.els.rickrollClose.style.cursor = 'pointer';
+                        this.els.rickrollClose.disabled = false;
+                        return;
+                    }
+
+                    const mins = Math.floor(remaining / 60000);
+                    const secs = Math.floor((remaining % 60000) / 1000);
+                    this.els.rickrollTime.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+                }, 100);
+            }
+
+            updateStats() {
+                const visits = this.getVisits();
+                this.els.visitCount.textContent = visits.length;
+
+                const levels = ['📊', '📈', '📉', '🔴', '⚡', '💀', '🚀'];
+                const idx = Math.min(visits.length, levels.length - 1);
+                this.els.degeneracy.textContent = levels[idx];
+            }
+
+            attachListeners() {
+                this.els.refreshBtn.addEventListener('click', () => {
+                    if (this.inRickroll || this.checkRickrollRestore()) {
+                        let refreshes = parseInt(localStorage.getItem(this.STORAGE_RICKROLL_REFRESHES) || '0');
+                        refreshes++;
+                        localStorage.setItem(this.STORAGE_RICKROLL_REFRESHES, refreshes.toString());
+                        this.rickrollEndTime += 60 * 1000;
+                        localStorage.setItem(this.STORAGE_RICKROLL_END, this.rickrollEndTime.toString());
+                    }
+                    location.reload();
+                });
+
+                this.els.nukeBtn.addEventListener('click', () => {
+                    if (confirm('PERMANENTLY DELETE ALL 24H DATA? NO TAKESIES BACKSIES.')) {
+                        localStorage.removeItem(this.STORAGE_VISITS);
+                        localStorage.removeItem(this.STORAGE_RICKROLL_END);
+                        localStorage.removeItem(this.STORAGE_RICKROLL_REFRESHES);
+                        location.reload();
+                    }
+                });
+
+                this.els.rickrollClose.addEventListener('click', () => {
+                    if (this.els.rickrollClose.classList.contains('enabled')) {
+                        this.hideRickroll();
+                    }
+                });
+            }
+
+            requestFullscreen() {
+                const doc = document.documentElement;
+                if (doc.requestFullscreen) {
+                    doc.requestFullscreen().catch(() => {});
+                } else if (doc.webkitRequestFullscreen) {
+                    doc.webkitRequestFullscreen();
+                } else if (doc.mozRequestFullScreen) {
+                    doc.mozRequestFullScreen();
+                } else if (doc.msRequestFullscreen) {
+                    doc.msRequestFullscreen();
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new DoomscrollDetox();
+        });
+
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            }
+        });
+
+        document.addEventListener('webkitfullscreenchange', () => {
+            if (!document.webkitFullscreenElement) {
+                document.documentElement.webkitRequestFullscreen();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
 </body>
 </html>
